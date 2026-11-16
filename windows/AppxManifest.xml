@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+         xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities">
+  <Identity Name="StreamCut.AIStreamClipper"
+            Publisher="CN=StreamCut Dev, O=StreamCut, C=US"
+            Version="1.0.0.0"
+            ProcessorArchitecture="neutral" />
+  <Properties>
+    <DisplayName>StreamCut — AI Stream Clipper</DisplayName>
+    <PublisherDisplayName>StreamCut AI</PublisherDisplayName>
+    <Logo>public\store-icon-150.png</Logo>
+    <Description>Turn livestreams and podcasts into viral Shorts, Reels and TikToks with AI ClipGPT, smart facecam detection, and auto-captions.</Description>
+  </Properties>
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.19041.0" MaxVersionTested="10.0.22621.0" />
+  </Dependencies>
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+  <Applications>
+    <Application Id="StreamCutApp"
+                 Executable="StreamCut.exe"
+                 EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements DisplayName="StreamCut"
+                          Description="AI Stream Clipper &amp; Viral Shorts Generator"
+                          BackgroundColor="#07060c"
+                          Square150x150Logo="public\store-icon-150.png"
+                          Square44x44Logo="public\store-icon-44.png">
+        <uap:DefaultTile Wide310x150Logo="public\store-icon-150.png"
+                         Square71x71Logo="public\store-icon-44.png"
+                         Square310x310Logo="public\store-icon-150.png" />
+        <uap:SplashScreen Image="public\store-splash-620.png" BackgroundColor="#07060c" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+</Package>

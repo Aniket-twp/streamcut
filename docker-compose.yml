@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  streamcut:
+    build: .
+    container_name: streamcut-cloud
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      - PORT=5173
+      - HOST=0.0.0.0
+      - LAN=1
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY:-}
+    volumes:
+      - streamcut-storage:/app/storage
+      - streamcut-cache:/app/cache
+
+volumes:
+  streamcut-storage:
+  streamcut-cache:

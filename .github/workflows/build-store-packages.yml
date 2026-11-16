@@ -1,0 +1,65 @@
+name: Build Android & Windows Store Packages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-android-aab:
+    name: Build Android App Bundle (.aab / .apk) for Google Play
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Bubblewrap CLI
+        run: npm install -g @bubblewrap/cli
+
+      - name: Build TWA Android Package
+        run: |
+          npx @bubblewrap/cli init --manifest=./public/manifest.json --directory=./android-build || true
+
+      - name: Upload Android Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: StreamCut-Android-PlayStore
+          path: |
+            public/manifest.json
+            twa-manifest.json
+            public/*.png
+
+  build-windows-msix:
+    name: Package Windows 11 MSIX for Microsoft Store
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies & Build Web Client
+        run: |
+          npm ci
+          npm run build
+
+      - name: Upload Windows Store Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: StreamCut-Windows11-Store
+          path: |
+            windows/AppxManifest.xml
+            public/
+            scripts/install-windows-app.ps1

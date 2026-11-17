@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-android-aab:
     name: Build Android App Bundle (.aab / .apk) for Google Play
@@ -39,8 +42,8 @@ jobs:
             twa-manifest.json
             public/*.png
 
-  build-windows-msix:
-    name: Package Windows 11 MSIX for Microsoft Store
+  build-windows-exe:
+    name: Package Native Windows Executable (.exe) & Store Artifacts
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -55,11 +58,17 @@ jobs:
           npm ci
           npm run build
 
-      - name: Upload Windows Store Artifacts
+      - name: Compile Native StreamCut.exe
+        run: |
+          powershell -ExecutionPolicy Bypass -File scripts/make-ico.ps1
+          & "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /target:winexe /win32icon:public\app.ico /out:StreamCut.exe tools\StreamCutLauncher.cs
+
+      - name: Upload Windows Standalone Executable
         uses: actions/upload-artifact@v4
         with:
-          name: StreamCut-Windows11-Store
+          name: StreamCut-Windows-Executable
           path: |
+            StreamCut.exe
             windows/AppxManifest.xml
             public/
             scripts/install-windows-app.ps1

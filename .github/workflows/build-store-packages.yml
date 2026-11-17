@@ -9,16 +9,11 @@ permissions:
   contents: write
 
 jobs:
-  build-android-aab:
-    name: Build Android App Bundle (.aab / .apk) for Google Play
+  build-android-apk:
+    name: Build Android APK (.apk) & Google Play Bundle
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -26,21 +21,42 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Bubblewrap CLI
-        run: npm install -g @bubblewrap/cli
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-      - name: Build TWA Android Package
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Web Client & Copy to Android Assets
         run: |
-          npx @bubblewrap/cli init --manifest=./public/manifest.json --directory=./android-build || true
+          npm ci
+          npm run build
+          mkdir -p android/app/src/main/assets/www
+          cp -r dist/* android/app/src/main/assets/www/
+
+      - name: Build Android APK with Gradle
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      - name: Prepare APK Asset
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk StreamCut.apk
 
       - name: Upload Android Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: StreamCut-Android-PlayStore
-          path: |
-            public/manifest.json
-            twa-manifest.json
-            public/*.png
+          name: StreamCut-Android-APK
+          path: StreamCut.apk
+
+      - name: Attach APK to GitHub Release v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload v1.0.0 StreamCut.apk --clobber || true
 
   build-windows-exe:
     name: Package Native Windows Executable (.exe) & Store Artifacts
@@ -72,3 +88,9 @@ jobs:
             windows/AppxManifest.xml
             public/
             scripts/install-windows-app.ps1
+
+      - name: Attach Windows Executable to GitHub Release v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload v1.0.0 StreamCut.exe --clobber || true

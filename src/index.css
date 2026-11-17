@@ -1855,6 +1855,33 @@ select {
 .shell-menu {
   display: none;
 }
+.nav-history-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.nav-history-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.nav-history-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+.nav-history-btn:active {
+  transform: translateY(0);
+}
 .shell-title h1 {
   margin: 0;
   font-size: 15px;

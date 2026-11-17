@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { navigate, type Screen } from '../lib/router';
 import { api } from '../lib/store';
 import type { Health, WorkspaceSettings } from '../types';
@@ -60,107 +60,6 @@ export default function AppShell({
   const [health, setHealth] = useState<Health | null>(null);
   const [healthError, setHealthError] = useState(false);
   const [activeJob, setActiveJob] = useState<{ id: string; stage: string; percent: number } | null>(null);
-
-  // Wobbly Liquid Glass Dock Physics (Cursor tracking & Mobile touch glide)
-  const hullRef = useRef<HTMLDivElement>(null);
-  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const [bubbleStyle, setBubbleStyle] = useState<{ left: number; width: number; scaleX: number; scaleY: number }>({
-    left: 8,
-    width: 60,
-    scaleX: 1,
-    scaleY: 1,
-  });
-  const [isWobbly, setIsWobbly] = useState(false);
-  const touchActive = useRef(false);
-
-  const updateBubblePosition = (targetIdx: number, scaleX = 1, scaleY = 1) => {
-    const el = itemRefs.current[targetIdx];
-    const hull = hullRef.current;
-    if (!el || !hull) return;
-    const itemRect = el.getBoundingClientRect();
-    const hullRect = hull.getBoundingClientRect();
-    const left = itemRect.left - hullRect.left;
-    const width = itemRect.width;
-    setBubbleStyle({ left, width, scaleX, scaleY });
-  };
-
-  const triggerWobble = () => {
-    setIsWobbly(true);
-    setTimeout(() => setIsWobbly(false), 500);
-  };
-
-  useEffect(() => {
-    const activeIdx = Math.max(0, DOCK_ITEMS.findIndex((item) => item.screen === screen));
-    const targetIdx = hoverIndex !== null ? hoverIndex : activeIdx;
-    updateBubblePosition(targetIdx, 1.12, 0.88);
-    const timer = setTimeout(() => {
-      updateBubblePosition(targetIdx, 1, 1);
-    }, 160);
-    return () => clearTimeout(timer);
-  }, [screen, hoverIndex]);
-
-  useEffect(() => {
-    const onResize = () => {
-      const activeIdx = Math.max(0, DOCK_ITEMS.findIndex((item) => item.screen === screen));
-      updateBubblePosition(hoverIndex !== null ? hoverIndex : activeIdx);
-    };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [screen, hoverIndex]);
-
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.pointerType === 'touch') return;
-    if (!hullRef.current) return;
-    const x = e.clientX;
-    let foundIdx: number | null = null;
-    itemRefs.current.forEach((el, idx) => {
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      if (x >= r.left && x <= r.right) {
-        foundIdx = idx;
-      }
-    });
-    if (foundIdx !== null && foundIdx !== hoverIndex) {
-      setHoverIndex(foundIdx);
-      triggerWobble();
-    }
-  };
-
-  const handlePointerLeave = () => {
-    setHoverIndex(null);
-    triggerWobble();
-  };
-
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    touchActive.current = true;
-    handleTouchMove(e);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    const touch = e.touches[0];
-    if (!touch || !hullRef.current) return;
-    const x = touch.clientX;
-    itemRefs.current.forEach((el, idx) => {
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      if (x >= r.left && x <= r.right) {
-        if (hoverIndex !== idx) {
-          setHoverIndex(idx);
-          triggerWobble();
-        }
-      }
-    });
-  };
-
-  const handleTouchEnd = () => {
-    touchActive.current = false;
-    if (hoverIndex !== null && DOCK_ITEMS[hoverIndex]) {
-      go(DOCK_ITEMS[hoverIndex].screen);
-      triggerWobble();
-    }
-    setHoverIndex(null);
-  };
 
   useEffect(() => {
     let alive = true;
@@ -340,51 +239,23 @@ export default function AppShell({
 
         <main className={`shell-content${bare ? ' bare' : ''}`}>{children}</main>
 
-        {/* Authentic iOS 27 Floating Liquid Glass Dock with Cursor & Touch Wobble Tracking */}
-        <nav className="ios-liquid-dock" aria-label="Quick navigation dock">
-          <div
-            ref={hullRef}
-            className="dock-glass-hull"
-            onPointerMove={handlePointerMove}
-            onPointerLeave={handlePointerLeave}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            <div className="dock-caustic-flare" aria-hidden />
-            <div
-              className={`dock-liquid-bubble${isWobbly ? ' wobbly' : ''}`}
-              style={{
-                transform: `translateX(${bubbleStyle.left}px) scale(${bubbleStyle.scaleX}, ${bubbleStyle.scaleY})`,
-                width: `${bubbleStyle.width}px`,
-              }}
-              aria-hidden
-            />
-            {DOCK_ITEMS.map((item, idx) => {
-              const isActive = screen === item.screen;
-              const isHovered = hoverIndex === idx;
-              return (
-                <button
-                  key={item.screen}
-                  ref={(el) => {
-                    itemRefs.current[idx] = el;
-                  }}
-                  className={`dock-item${isActive ? ' active' : ''}${isHovered ? ' hovered' : ''}`}
-                  onClick={() => {
-                    go(item.screen);
-                    triggerWobble();
-                  }}
-                  title={item.label}
-                  aria-current={isActive ? 'page' : undefined}
-                >
-                  <div className="dock-icon-lens">
-                    {item.icon}
-                  </div>
-                  <span className="dock-label">{item.label}</span>
-                </button>
-              );
-            })}
-          </div>
+        {/* Clean, Stable Native Mobile Bottom Navigation */}
+        <nav className="mobile-tab-bar" aria-label="Mobile navigation">
+          {DOCK_ITEMS.map((item) => {
+            const isActive = screen === item.screen;
+            return (
+              <button
+                key={item.screen}
+                className={`mobile-tab-btn${isActive ? ' active' : ''}`}
+                onClick={() => go(item.screen)}
+                aria-current={isActive ? 'page' : undefined}
+                title={item.label}
+              >
+                <div className="tab-icon">{item.icon}</div>
+                <span className="tab-label">{item.label}</span>
+              </button>
+            );
+          })}
         </nav>
       </div>
     </div>

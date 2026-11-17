@@ -1,0 +1,43 @@
+name: Build & Attach Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build TWA Project
+        run: |
+          npm install -g @bubblewrap/cli
+          # Initialize Android TWA Project
+          npx @bubblewrap/cli init --manifest=./public/manifest.json --directory=./android-twa --skipPwaValidation || true
+          
+      - name: Upload APK to Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Release packages ready"

@@ -164,9 +164,63 @@ export default function SettingsScreen({ settings, projects, onSaved, notify }: 
           </select>
         </div>
 
+        {/* Quick API Key Creation Direct Links */}
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', margin: '8px 0 16px' }}>
+          <a
+            href="https://platform.deepseek.com/api_keys"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary"
+            style={{ fontSize: '0.8rem', padding: '6px 12px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 5 }}
+            title="Create or view your DeepSeek API key"
+          >
+            🔑 DeepSeek API Keys ↗
+          </a>
+          <a
+            href="https://aistudio.google.com/app/apikey"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary"
+            style={{ fontSize: '0.8rem', padding: '6px 12px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 5 }}
+            title="Create or view your Google Gemini API key"
+          >
+            🔑 Google Gemini Keys ↗
+          </a>
+          <a
+            href="https://platform.openai.com/api-keys"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary"
+            style={{ fontSize: '0.8rem', padding: '6px 12px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 5 }}
+            title="Create or view your OpenAI API key"
+          >
+            🔑 OpenAI Keys ↗
+          </a>
+          <a
+            href="https://console.anthropic.com/settings/keys"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary"
+            style={{ fontSize: '0.8rem', padding: '6px 12px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 5 }}
+            title="Create or view your Anthropic Claude API key"
+          >
+            🔑 Anthropic Claude Keys ↗
+          </a>
+        </div>
+
         {aiEngine === 'gemini' && (
           <label className="field">
-            <span>Gemini API Key</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+              <span>Gemini API Key</span>
+              <a
+                href="https://aistudio.google.com/app/apikey"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: '0.78rem', color: '#38bdf8', textDecoration: 'underline' }}
+              >
+                Create Google Gemini Key ↗
+              </a>
+            </div>
             <div style={{ display: 'flex', gap: 8 }}>
               <input
                 className="input"
@@ -190,7 +244,17 @@ export default function SettingsScreen({ settings, projects, onSaved, notify }: 
 
         {aiEngine === 'openai' && (
           <label className="field">
-            <span>OpenAI API Key</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+              <span>OpenAI API Key</span>
+              <a
+                href="https://platform.openai.com/api-keys"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: '0.78rem', color: '#38bdf8', textDecoration: 'underline' }}
+              >
+                Create OpenAI Key ↗
+              </a>
+            </div>
             <div style={{ display: 'flex', gap: 8 }}>
               <input
                 className="input"
@@ -215,7 +279,17 @@ export default function SettingsScreen({ settings, projects, onSaved, notify }: 
         {aiEngine === 'claude' && (
           <div>
             <label className="field">
-              <span>Anthropic Claude API Key (Proprietary / Commercial API)</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                <span>Anthropic Claude API Key (Proprietary / Commercial API)</span>
+                <a
+                  href="https://console.anthropic.com/settings/keys"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: '0.78rem', color: '#38bdf8', textDecoration: 'underline' }}
+                >
+                  Create Anthropic Key ↗
+                </a>
+              </div>
               <div style={{ display: 'flex', gap: 8 }}>
                 <input
                   className="input"
@@ -243,7 +317,17 @@ export default function SettingsScreen({ settings, projects, onSaved, notify }: 
 
         {aiEngine === 'deepseek' && (
           <label className="field">
-            <span>DeepSeek API Key</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+              <span>DeepSeek API Key</span>
+              <a
+                href="https://platform.deepseek.com/api_keys"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: '0.78rem', color: '#38bdf8', textDecoration: 'underline' }}
+              >
+                Create DeepSeek Key ↗
+              </a>
+            </div>
             <div style={{ display: 'flex', gap: 8 }}>
               <input
                 className="input"

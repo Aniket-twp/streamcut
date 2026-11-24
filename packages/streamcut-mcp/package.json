@@ -1,0 +1,50 @@
+{
+  "name": "streamcut-mcp",
+  "version": "1.0.0",
+  "description": "Official Model Context Protocol (MCP) server for StreamCut — AI Video Stream Clipping, Viral Moment Detection, and 9:16 Reframe Engine for Anthropic Claude.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "streamcut-mcp": "./bin/streamcut-mcp.js"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node bin/streamcut-mcp.js",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "anthropic",
+    "video-editing",
+    "stream-clipper",
+    "ai-video",
+    "shorts",
+    "reels",
+    "ffmpeg",
+    "yt-dlp"
+  ],
+  "author": "Aniket <aniketborude70@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aniket-twp/streamcut.git",
+    "directory": "packages/streamcut-mcp"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "typescript": "^5.6.3"
+  }
+}

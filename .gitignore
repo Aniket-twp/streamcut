@@ -1,6 +1,6 @@
 tools/cloudflared.exe
 node_modules/
-dist/
+/dist/
 .cache/
 *.pid
 .env

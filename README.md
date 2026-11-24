@@ -7,6 +7,7 @@
 
 <p align="center">
   <a href="https://github.com/Aniket-twp/streamcut/releases/tag/v1.0.0"><img src="https://img.shields.io/badge/Release-v1.0.0-lime.svg?style=flat-square" alt="Release"></a>
+  <a href="https://github.com/Aniket-twp/streamcut/tree/main/packages/streamcut-mcp"><img src="https://img.shields.io/badge/MCP-Claude%20Desktop%20Ready-blue.svg?style=flat-square" alt="MCP Compatible"></a>
   <a href="https://github.com/Aniket-twp/streamcut/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License"></a>
   <img src="https://img.shields.io/badge/Platforms-Windows%20%7C%20Android%20%7C%20Web-purple.svg?style=flat-square" alt="Platforms">
   <img src="https://img.shields.io/badge/Node.js-%3E%3D20.0-green.svg?style=flat-square" alt="Node.js">
@@ -23,6 +24,30 @@
 | 🤖 **Android** | [**Download StreamCut.apk**](https://github.com/Aniket-twp/streamcut/releases/download/v1.0.0/StreamCut.apk) | Native full-screen APK package with offline assets |
 | 🪟 **Windows** | [**Download StreamCut.exe**](https://github.com/Aniket-twp/streamcut/releases/download/v1.0.0/StreamCut.exe) | Standalone frameless desktop launcher (Windows 10/11) |
 | 📦 **All Assets** | [**GitHub Releases v1.0.0**](https://github.com/Aniket-twp/streamcut/releases/tag/v1.0.0) | Complete binaries, release notes, and store packages |
+
+---
+
+## 🧠 Anthropic Claude Desktop & MCP Integration
+
+StreamCut provides an official **Model Context Protocol (MCP)** server. You can connect StreamCut directly to **Claude Desktop** or **Claude Code** to analyze streams, find viral moments, and export vertical clips conversationally:
+
+```json
+{
+  "mcpServers": {
+    "streamcut": {
+      "command": "npx",
+      "args": ["-y", "streamcut-mcp"]
+    }
+  }
+}
+```
+
+### Available MCP Tools for Claude:
+- `streamcut_probe_video`: Read stream duration, resolution, audio tracks, and metadata from YouTube/Twitch/Kick.
+- `streamcut_extract_transcript`: Pull timestamped speech cues from any stream in seconds.
+- `streamcut_detect_viral_moments`: AI-scored viral hooks, comedy spikes, and punchline clips.
+- `streamcut_export_clip`: Render 9:16 vertical MP4s ready for YouTube Shorts, TikTok, and Instagram Reels.
+- `streamcut_system_health`: Verify local media engine dependencies (FFmpeg, yt-dlp).
 
 ---
 

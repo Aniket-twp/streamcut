@@ -8,6 +8,8 @@
     "dev": "node server.mjs",
     "dev:lan": "node server.mjs --lan",
     "setup:links": "node scripts/setup-links.mjs",
+    "mcp": "node packages/streamcut-mcp/bin/streamcut-mcp.js",
+    "build:mcp": "npm run build --prefix packages/streamcut-mcp",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview"
   },

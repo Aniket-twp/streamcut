@@ -1238,7 +1238,7 @@ const vite = await createViteServer({
   root: ROOT,
   appType: 'spa',
   configLoader: 'runner',
-  server: { middlewareMode: true, hmr: { server } },
+  server: { middlewareMode: true, hmr: { server }, allowedHosts: true },
 });
 
 server.listen(PORT, LAN ? '0.0.0.0' : '127.0.0.1', () => {

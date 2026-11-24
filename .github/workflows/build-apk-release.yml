@@ -30,6 +30,11 @@ jobs:
         run: |
           npm ci
           npm run build
+          # Wipe before copying. assets/www is committed with a stale build, and
+          # `cp -r dist/*` only overwrites same-named files, so every release so
+          # far shipped orphan CSS/JS from previous hashes (the last APK contained
+          # both index-BqSx6y-1.css and the pre-redesign index-E6d4RsYp.css).
+          rm -rf android/app/src/main/assets/www
           mkdir -p android/app/src/main/assets/www
           cp -r dist/* android/app/src/main/assets/www/
 

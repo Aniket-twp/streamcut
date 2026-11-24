@@ -18,7 +18,7 @@ const MAIN_NAV: NavItem[] = [
   { screen: 'home', label: 'Home', icon: icon(<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />) },
   { screen: 'ai-clips', label: 'ClipGPT', icon: icon(<path d="m12 6 1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z" stroke="currentColor" fill="none" />) },
   { screen: 'editor', label: 'Editor', icon: icon(<><rect x="6" y="2" width="12" height="20" rx="3" /><polygon points="10 8 16 12 10 16" fill="none" /></>) },
-  { screen: 'library', label: 'Projects', icon: icon(<><rect x="3" y="3" width="18" height="18" rx="3" /><path d="m9.5 8.5 5 3.5-5 3.5z" /></>) },
+  { screen: 'library', label: 'Library', icon: icon(<><rect x="3" y="3" width="18" height="18" rx="3" /><path d="m9.5 8.5 5 3.5-5 3.5z" /></>) },
   { screen: 'publisher', label: 'Scheduler', icon: icon(<><rect x="3" y="4" width="18" height="18" rx="3" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></>) },
 ];
 
@@ -32,7 +32,7 @@ const DOCK_ITEMS: NavItem[] = [
   { screen: 'home', label: 'Home', icon: icon(<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />) },
   { screen: 'ai-clips', label: 'ClipGPT', icon: icon(<path d="m12 6 1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z" stroke="currentColor" fill="none" />) },
   { screen: 'editor', label: 'Editor', icon: icon(<><rect x="6" y="2" width="12" height="20" rx="3" /><polygon points="10 8 16 12 10 16" fill="none" /></>) },
-  { screen: 'library', label: 'Projects', icon: icon(<><rect x="3" y="3" width="18" height="18" rx="3" /><path d="m9.5 8.5 5 3.5-5 3.5z" /></>) },
+  { screen: 'library', label: 'Library', icon: icon(<><rect x="3" y="3" width="18" height="18" rx="3" /><path d="m9.5 8.5 5 3.5-5 3.5z" /></>) },
   { screen: 'publisher', label: 'Scheduler', icon: icon(<><rect x="3" y="4" width="18" height="18" rx="3" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></>) },
   { screen: 'settings', label: 'Settings', icon: icon(<><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" /></>) },
 ];
@@ -193,6 +193,30 @@ export default function AppShell({
               <path d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </button>
+
+          {/* Forward and Backward Browser-Style Navigation Buttons */}
+          <div className="nav-history-controls" aria-label="Page navigation">
+            <button
+              className="icon-btn nav-history-btn"
+              onClick={() => window.history.back()}
+              title="Go back (Back)"
+              aria-label="Go back"
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              className="icon-btn nav-history-btn"
+              onClick={() => window.history.forward()}
+              title="Go forward (Forward)"
+              aria-label="Go forward"
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
 
           <div className="shell-title">
             <h1>{title}</h1>

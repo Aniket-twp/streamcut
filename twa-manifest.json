@@ -1,0 +1,48 @@
+{
+  "packageId": "com.streamcut.app",
+  "host": "streamcut-cloud.up.railway.app",
+  "name": "StreamCut — AI Stream Clipper",
+  "launcherName": "StreamCut",
+  "themeColor": "#07060c",
+  "navigationColor": "#07060c",
+  "backgroundColor": "#07060c",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://raw.githubusercontent.com/aniketborude/streamcut/main/public/icon-512.png",
+  "maskableIconUrl": "https://raw.githubusercontent.com/aniketborude/streamcut/main/public/icon-maskable-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "alias": "streamcut-release",
+    "path": "android/streamcut-release-key.keystore"
+  },
+  "appVersionCode": 1,
+  "appVersionName": "1.0.0",
+  "shortcuts": [
+    {
+      "name": "Import Stream",
+      "shortName": "Import",
+      "url": "/?tab=import",
+      "icon": "icon-192"
+    },
+    {
+      "name": "ClipGPT AI",
+      "shortName": "ClipGPT",
+      "url": "/?tab=clipgpt",
+      "icon": "icon-192"
+    }
+  ],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://streamcut-cloud.up.railway.app/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {
+    "locationDelegation": {
+      "enabled": false
+    },
+    "playBilling": {
+      "enabled": false
+    }
+  },
+  "alphaDependencies": {
+    "enabled": false
+  }
+}

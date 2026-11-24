@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: streamcut
+    runtime: docker
+    plan: starter
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 5173
+      - key: HOST
+        value: 0.0.0.0
+      - key: LAN
+        value: 1
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+    disk:
+      name: streamcut-disk
+      mountPath: /app/storage
+      sizeGB: 50

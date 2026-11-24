@@ -225,7 +225,7 @@ export default function CaptionsPanel({ style, clip, source, cues, setCues, onSt
               notify('Applied Hormozi Pop captions.');
             }}
           >
-            🔥 Hormozi Pop
+            Hormozi Pop
           </button>
           <button
             type="button"
@@ -245,7 +245,7 @@ export default function CaptionsPanel({ style, clip, source, cues, setCues, onSt
               notify('Applied Highlighter Box captions.');
             }}
           >
-            🖍 Highlighter
+            Highlighter
           </button>
           <button
             type="button"
@@ -264,7 +264,7 @@ export default function CaptionsPanel({ style, clip, source, cues, setCues, onSt
               notify('Applied Modern Glow captions.');
             }}
           >
-            ✨ Modern Glow
+            Modern Glow
           </button>
         </div>
 

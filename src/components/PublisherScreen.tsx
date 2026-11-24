@@ -110,7 +110,7 @@ export default function PublisherScreen({ schedules, projects, settings, loading
         caption: pkg.caption,
         hashtags: pkg.hashtags.join(' '),
       });
-      notify(`✨ Gemini generated viral post! (Score: ${pkg.viralityScore}/100)`);
+      notify(`Gemini generated viral post! (Score: ${pkg.viralityScore}/100)`);
     } catch (err) {
       notify((err as Error).message);
     } finally {
@@ -255,7 +255,7 @@ export default function PublisherScreen({ schedules, projects, settings, loading
                   color: '#c7d2fe',
                 }}
               >
-                {aiGenerating ? '✨ Generating copy with Gemini…' : '✨ Auto-fill Title, Caption & Tags with Gemini'}
+                {aiGenerating ? 'Generating copy with Gemini…' : 'Auto-fill Title, Caption & Tags with Gemini'}
               </button>
             </div>
           )}

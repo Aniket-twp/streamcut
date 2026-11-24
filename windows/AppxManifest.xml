@@ -28,13 +28,13 @@
                  EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements DisplayName="StreamCut"
                           Description="AI Stream Clipper &amp; Viral Shorts Generator"
-                          BackgroundColor="#07060c"
+                          BackgroundColor="#0B0B0C"
                           Square150x150Logo="public\store-icon-150.png"
                           Square44x44Logo="public\store-icon-44.png">
         <uap:DefaultTile Wide310x150Logo="public\store-icon-150.png"
                          Square71x71Logo="public\store-icon-44.png"
                          Square310x310Logo="public\store-icon-150.png" />
-        <uap:SplashScreen Image="public\store-splash-620.png" BackgroundColor="#07060c" />
+        <uap:SplashScreen Image="public\store-splash-620.png" BackgroundColor="#0B0B0C" />
       </uap:VisualElements>
     </Application>
   </Applications>

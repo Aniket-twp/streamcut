@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { navigate, type Screen } from '../lib/router';
 import { api } from '../lib/store';
 import type { Health, WorkspaceSettings } from '../types';
-import LiquidBackground from './LiquidBackground';
+import Backdrop from './Backdrop';
 
 type SaveState = 'idle' | 'saving' | 'saved' | 'error';
 
@@ -137,13 +137,11 @@ export default function AppShell({
   );
 
   const engineReady = Boolean(health?.ok);
-  const engineLabel = healthError
-    ? 'Cloud server reconnecting'
-    : '☁️ Cloud Engine Ready';
+  const engineLabel = healthError ? 'reconnecting' : 'engine ready';
 
   return (
     <div className="shell">
-      <LiquidBackground />
+      <Backdrop />
       <aside className={`sidebar${drawer ? ' open' : ''}`}>
         <div className="sidebar-head">
           <button className="sidebar-brand" onClick={() => navigate('/')} aria-label="StreamCut home">
@@ -161,7 +159,7 @@ export default function AppShell({
           </button>
         </div>
 
-        <button className="btn btn-lime sidebar-create" onClick={() => go('new')}>
+        <button className="btn btn-primary sidebar-create" onClick={() => go('new')}>
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
             <path d="M12 5v14M5 12h14" />
           </svg>

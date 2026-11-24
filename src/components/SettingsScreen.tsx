@@ -156,11 +156,11 @@ export default function SettingsScreen({ settings, projects, onSaved, notify }: 
             value={aiEngine}
             onChange={(e) => setAiEngine(e.target.value as 'gemini' | 'ollama' | 'openai' | 'claude' | 'deepseek')}
           >
-            <option value="deepseek">🟢 DeepSeek (Open-Weights: V4.1 Flash / V3 / R1)</option>
-            <option value="ollama">🟢 Ollama (100% Open-Source: Qwen 3 / Llama 3.3)</option>
-            <option value="gemini">⚡ Google Gemini (Free Tier &amp; Multimodal)</option>
-            <option value="claude">🔒 Anthropic Claude (Proprietary: Claude 3.5 Sonnet)</option>
-            <option value="openai">🔒 OpenAI (Proprietary: GPT-4o / 4o-mini)</option>
+            <option value="deepseek">DeepSeek (Open-Weights: V4.1 Flash / V3 / R1)</option>
+            <option value="ollama">Ollama (100% Open-Source: Qwen 3 / Llama 3.3)</option>
+            <option value="gemini">Google Gemini (Free Tier &amp; Multimodal)</option>
+            <option value="claude">Anthropic Claude (Proprietary: Claude 3.5 Sonnet)</option>
+            <option value="openai">OpenAI (Proprietary: GPT-4o / 4o-mini)</option>
           </select>
         </div>
 
@@ -174,7 +174,7 @@ export default function SettingsScreen({ settings, projects, onSaved, notify }: 
             style={{ fontSize: '0.8rem', padding: '6px 12px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 5 }}
             title="Create or view your DeepSeek API key"
           >
-            🔑 DeepSeek API Keys ↗
+            DeepSeek API Keys ↗
           </a>
           <a
             href="https://aistudio.google.com/app/apikey"
@@ -184,7 +184,7 @@ export default function SettingsScreen({ settings, projects, onSaved, notify }: 
             style={{ fontSize: '0.8rem', padding: '6px 12px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 5 }}
             title="Create or view your Google Gemini API key"
           >
-            🔑 Google Gemini Keys ↗
+            Google Gemini Keys ↗
           </a>
           <a
             href="https://platform.openai.com/api-keys"
@@ -194,7 +194,7 @@ export default function SettingsScreen({ settings, projects, onSaved, notify }: 
             style={{ fontSize: '0.8rem', padding: '6px 12px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 5 }}
             title="Create or view your OpenAI API key"
           >
-            🔑 OpenAI Keys ↗
+            OpenAI Keys ↗
           </a>
           <a
             href="https://console.anthropic.com/settings/keys"
@@ -204,7 +204,7 @@ export default function SettingsScreen({ settings, projects, onSaved, notify }: 
             style={{ fontSize: '0.8rem', padding: '6px 12px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 5 }}
             title="Create or view your Anthropic Claude API key"
           >
-            🔑 Anthropic Claude Keys ↗
+            Anthropic Claude Keys ↗
           </a>
         </div>
 
@@ -361,7 +361,7 @@ export default function SettingsScreen({ settings, projects, onSaved, notify }: 
                 className="btn btn-primary"
                 onClick={() => setShowOllamaSheet(true)}
               >
-                ⚡ 1-Click Automated Download &amp; Setup
+                1-Click Automated Download &amp; Setup
               </button>
             </div>
           </div>

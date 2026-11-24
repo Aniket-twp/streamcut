@@ -119,7 +119,7 @@ export default function OllamaSetupSheet({
       <div className="sheet-content glass-panel" onClick={(e) => e.stopPropagation()}>
         <div className="sheet-header">
           <div>
-            <span className="sheet-badge">⚡ 100% Offline AI Installer</span>
+            <span className="sheet-badge">100% Offline AI Installer</span>
             <h2 className="sheet-title">Automated Ollama &amp; Qwen Setup</h2>
           </div>
           <button className="icon-btn sheet-close" onClick={onClose} aria-label="Close">
@@ -135,7 +135,7 @@ export default function OllamaSetupSheet({
           <>
             {/* Detected Hardware Pod */}
             <div className="hardware-pill-pod">
-              <div className="hw-icon">🖥️</div>
+              <div className="hw-icon"></div>
               <div className="hw-details">
                 <span className="hw-label">Detected Graphics Hardware:</span>
                 <span className="hw-value">
@@ -215,7 +215,7 @@ export default function OllamaSetupSheet({
                 >
                   {pulling && pulling.status !== 'done' && pulling.status !== 'error'
                     ? `Downloading ${selectedModel} (${pulling.percent}%)…`
-                    : `⚡ 1-Click Download & Setup (${selectedModelObj?.size || 'Auto'})`}
+                    : `1-Click Download & Setup (${selectedModelObj?.size || 'Auto'})`}
                 </button>
               )}
             </div>

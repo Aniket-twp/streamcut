@@ -253,7 +253,7 @@ export default function ExportPanel({
       <div style={{ background: 'rgba(255, 255, 255, 0.04)', borderRadius: 12, padding: 14, margin: '14px 0', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: '1.1rem' }}>✨</span>
+            <span style={{ fontSize: '1.1rem' }}></span>
             <b style={{ fontSize: '0.95rem' }}>Gemini AI Viral Packaging</b>
           </div>
           {viralPkg && (
@@ -265,7 +265,7 @@ export default function ExportPanel({
               fontSize: '0.8rem',
               fontWeight: 600,
             }}>
-              🔥 {viralPkg.viralityScore}/100 Virality
+              {viralPkg.viralityScore}/100 Virality
             </span>
           )}
         </div>
@@ -289,7 +289,7 @@ export default function ExportPanel({
           disabled={viralLoading}
           style={{ marginBottom: viralPkg ? 12 : 0 }}
         >
-          {viralLoading ? '✨ Analyzing clip with Gemini…' : viralPkg ? '🔄 Regenerate with Gemini' : '✨ Generate Viral Package (Gemini)'}
+          {viralLoading ? 'Analyzing clip with Gemini…' : viralPkg ? 'Regenerate with Gemini' : 'Generate Viral Package (Gemini)'}
         </button>
 
         {viralPkg && (
@@ -318,7 +318,7 @@ export default function ExportPanel({
                       notify(`Selected title: "${title}"`);
                     }}
                   >
-                    🎯 {title}
+                    {title}
                   </button>
                 ))}
               </div>
@@ -337,7 +337,7 @@ export default function ExportPanel({
 
             {viralPkg.retentionTip && (
               <div style={{ fontSize: '0.82rem', color: '#cbd5e1', background: 'rgba(255, 255, 255, 0.03)', padding: 8, borderRadius: 6 }}>
-                💡 <b>Retention Tip:</b> {viralPkg.retentionTip}
+                <b>Retention Tip:</b> {viralPkg.retentionTip}
               </div>
             )}
           </div>

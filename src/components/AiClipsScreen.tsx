@@ -134,10 +134,10 @@ function viralityColor(score: number): string {
 }
 
 function viralityLabel(score: number): string {
-  if (score >= 80) return '🔥 Viral potential';
-  if (score >= 60) return '✨ Strong clip';
-  if (score >= 40) return '👍 Decent clip';
-  return '📎 Might work';
+  if (score >= 80) return 'Viral potential';
+  if (score >= 60) return 'Strong clip';
+  if (score >= 40) return 'Decent clip';
+  return 'Might work';
 }
 
 /** Extract cues (caption segments) from transcript that overlap a given time range. */
@@ -808,7 +808,7 @@ export default function AiClipsScreen({ initialUrl, initialPlatform, settings, o
             {aiReady && (
               <>
                 <label className="field">
-                  <span>🎯 What to look for <span className="optional">(optional)</span></span>
+                  <span>What to look for <span className="optional">(optional)</span></span>
                   <input
                     className="input"
                     value={focus}
@@ -818,7 +818,7 @@ export default function AiClipsScreen({ initialUrl, initialPlatform, settings, o
                   <span className="hint" style={{ marginTop: 4 }}>Describe the kind of moments you want. Leave empty to let the AI decide.</span>
                 </label>
                 <label className="field">
-                  <span>🌍 Stream language</span>
+                  <span>Stream language</span>
                   <select className="input" value={language} onChange={(event) => setLanguage(event.target.value)}>
                     {LANGUAGES.map((lang) => (
                       <option key={lang.code} value={lang.code}>
@@ -828,7 +828,7 @@ export default function AiClipsScreen({ initialUrl, initialPlatform, settings, o
                   </select>
                 </label>
                 <div className="field">
-                  <span>💬 Chat replay context <span className="optional">(optional)</span></span>
+                  <span>Chat replay context <span className="optional">(optional)</span></span>
                   <input
                     ref={chatFileRef}
                     type="file"
@@ -987,7 +987,7 @@ export default function AiClipsScreen({ initialUrl, initialPlatform, settings, o
                     <b>{suggestion.title}</b>
 
                     {isAi && suggestion.hook && (
-                      <p className="result-hook">🪝 {suggestion.hook}</p>
+                      <p className="result-hook">{suggestion.hook}</p>
                     )}
 
                     <span className="result-times">
@@ -1021,7 +1021,7 @@ export default function AiClipsScreen({ initialUrl, initialPlatform, settings, o
                     )}
 
                     {isAi && suggestion.reason && (
-                      <p className="result-reason">💡 {suggestion.reason}</p>
+                      <p className="result-reason">{suggestion.reason}</p>
                     )}
 
                     {isAi && suggestion.hashtags && (

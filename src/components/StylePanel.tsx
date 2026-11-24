@@ -319,7 +319,7 @@ export default function StylePanel({ style, clip, onStyle, onClip, onAutoReframe
             ) : clip.autoReframe ? (
               'Re-run smart tracking'
             ) : (
-              '🎯 Auto-reframe with Facecam'
+              'Auto-reframe with Facecam'
             )}
           </button>
           {clip.autoReframe && (

@@ -424,28 +424,48 @@ export default function ImportScreen({
         {!compact && (
           <div className="features">
           <div className="feature">
-            <div className="feature-icon">⚡</div>
+            <div className="feature-icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" />
+                <path d="M18 15.5 19 18l2.5 1-2.5 1-1 2.5-1-2.5L14.5 19l2.5-1z" />
+              </svg>
+            </div>
             <div>
               <b>AI moment finder</b>
               <p>Whisper transcribes the speech, then Qwen3 picks complete moments with a hook and payoff.</p>
             </div>
           </div>
           <div className="feature">
-            <div className="feature-icon">🎯</div>
+            <div className="feature-icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="7" y="3" width="10" height="18" rx="2" />
+                <path d="M3 8v8M21 8v8" />
+              </svg>
+            </div>
             <div>
               <b>Auto reframe</b>
               <p>Samples frames to keep the action inside the 9:16 crop instead of black bars.</p>
             </div>
           </div>
           <div className="feature">
-            <div className="feature-icon">💬</div>
+            <div className="feature-icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 5h16v11H9l-5 4z" />
+                <path d="M8 9h8M8 12h5" />
+              </svg>
+            </div>
             <div>
               <b>Caption studio</b>
               <p>Import SRT/VTT, or type a script and time it across the clip automatically.</p>
             </div>
           </div>
             <div className="feature">
-              <div className="feature-icon">📱</div>
+              <div className="feature-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="8" y="2" width="8" height="20" rx="2" />
+                  <path d="M11 19h2" />
+                </svg>
+              </div>
               <div>
                 <b>One-click 9:16 export</b>
                 <p>Renders 1080×1920 MP4/WebM with your background, captions and progress bar.</p>

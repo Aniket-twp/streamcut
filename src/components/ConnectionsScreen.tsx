@@ -132,7 +132,7 @@ export default function ConnectionsScreen() {
             <p>Your connected social networks for direct Shorts, Reels, and TikTok publishing.</p>
           </div>
           <span className="pill" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8' }}>
-            ⚡ 1-Click Direct Connect
+            1-Click Direct Connect
           </span>
         </div>
 

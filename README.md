@@ -21,6 +21,7 @@
 
 | Platform | Download Link | Description |
 | :--- | :--- | :--- |
+| 🌐 **Live Web App** | [**https://aniket-twp.github.io/streamcut/**](https://aniket-twp.github.io/streamcut/) | 24/7 permanent public web client |
 | 🤖 **Android** | [**Download StreamCut.apk**](https://github.com/Aniket-twp/streamcut/releases/download/v1.0.0/StreamCut.apk) | Native full-screen APK package with offline assets |
 | 🪟 **Windows** | [**Download StreamCut.exe**](https://github.com/Aniket-twp/streamcut/releases/download/v1.0.0/StreamCut.exe) | Standalone frameless desktop launcher (Windows 10/11) |
 | 📦 **All Assets** | [**GitHub Releases v1.0.0**](https://github.com/Aniket-twp/streamcut/releases/tag/v1.0.0) | Complete binaries, release notes, and store packages |

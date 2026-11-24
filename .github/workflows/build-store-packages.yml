@@ -36,10 +36,13 @@ jobs:
       - name: Build Android APK with Gradle
         env:
           ANDROID_HOME: /usr/local/lib/android/sdk
+          # Repo variable: Settings -> Secrets and variables -> Actions -> Variables.
+          # Unset => APK uses its bundled assets rather than a stale quick tunnel.
+          STREAMCUT_SERVER_URL: ${{ vars.STREAMCUT_SERVER_URL }}
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug --no-daemon -PstreamcutServerUrl="${STREAMCUT_SERVER_URL}"
 
       - name: Prepare APK Asset
         run: |

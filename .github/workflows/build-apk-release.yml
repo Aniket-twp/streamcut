@@ -36,10 +36,14 @@ jobs:
       - name: Build Android APK with Gradle
         env:
           ANDROID_HOME: /usr/local/lib/android/sdk
+          # Set this in repo Settings -> Secrets and variables -> Actions ->
+          # *Variables* to your hosted backend, e.g. https://streamcut.up.railway.app
+          # If unset the APK runs from its bundled assets instead of a dead tunnel.
+          STREAMCUT_SERVER_URL: ${{ vars.STREAMCUT_SERVER_URL }}
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug --no-daemon -PstreamcutServerUrl="${STREAMCUT_SERVER_URL}"
 
       - name: Prepare APK Asset
         run: |

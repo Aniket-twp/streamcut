@@ -12,6 +12,19 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0.0"
+
+        // Where the app finds its backend. Set at build time with
+        //   ./gradlew assembleRelease -PstreamcutServerUrl=https://streamcut.up.railway.app
+        // (the APK workflow does this from the repo variable). Empty means
+        // "no remote backend configured" and the app runs from its bundled
+        // assets instead of pointing at a dead Cloudflare quick tunnel.
+        buildConfigField "String", "STREAMCUT_SERVER_URL",
+                "\"${project.findProperty('streamcutServerUrl') ?: ''}\""
+    }
+
+    buildFeatures {
+        // AGP 8 stopped generating BuildConfig unless asked.
+        buildConfig true
     }
 
     buildTypes {

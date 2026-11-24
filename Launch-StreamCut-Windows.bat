@@ -14,7 +14,7 @@ if %ERRORLEVEL% EQU 0 (
 ) else (
     echo Starting StreamCut server...
     start /min "StreamCut-Server" node server.mjs --lan
-    timeout /t 2 /nobreak >nul
+    call :waitready
 )
 
 :: Find modern browser to launch in dedicated app window mode
@@ -37,3 +37,14 @@ if defined BROWSER_CMD (
 )
 
 exit
+
+:: Wait until the server actually answers HTTP, up to 30s.
+:waitready
+set /a WAITTRIES=0
+:waitready_loop
+powershell -NoProfile -Command "try { $null = Invoke-WebRequest -Uri 'http://127.0.0.1:5173/' -UseBasicParsing -TimeoutSec 2; exit 0 } catch { exit 1 }"
+if not errorlevel 1 exit /b 0
+set /a WAITTRIES+=1
+if %WAITTRIES% GEQ 30 exit /b 1
+timeout /t 1 /nobreak >nul
+goto waitready_loop

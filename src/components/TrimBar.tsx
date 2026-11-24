@@ -61,8 +61,15 @@ export default function TrimBar({ duration, start, end, current, bars, onTrim, o
     <div className="trim">
       <div className="trim-track" ref={trackRef} onPointerDown={begin('seek')}>
         <svg className="wave" viewBox={`0 0 ${Math.max(1, bars.length)} 100`} preserveAspectRatio="none" aria-hidden>
+          <defs>
+            <linearGradient id="sc-wave" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#5fb0ff" stopOpacity="0.55" />
+              <stop offset="0.55" stopColor="#a78bfa" stopOpacity="0.38" />
+              <stop offset="1" stopColor="#b9f553" stopOpacity="0.22" />
+            </linearGradient>
+          </defs>
           {bars.map((v, i) => (
-            <rect key={i} x={i + 0.08} y={100 - v * 98} width={0.84} height={Math.max(1.2, v * 98)} rx={0.4} />
+            <rect key={i} x={i + 0.08} y={100 - v * 98} width={0.84} height={Math.max(1.2, v * 98)} rx={0.4} fill="url(#sc-wave)" />
           ))}
         </svg>
         <div className="trim-dim" style={{ left: 0, width: pct(start) }} />

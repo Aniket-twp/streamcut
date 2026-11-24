@@ -1204,6 +1204,73 @@ const housekeeping = setInterval(() => {
 }, 15 * 60 * 1000);
 housekeeping.unref();
 
+// ---- production static serving ----
+// Every non-/api request used to go through a Vite server in middleware mode,
+// including inside containers. So a Docker image that ran `npm run build` and
+// shipped dist/ still served un-bundled source to browsers, plus a live
+// /@vite/client HMR websocket. Gated on NODE_ENV so `npm run dev` keeps hot
+// reload; only production builds switch to the static bundle.
+const DIST = path.join(ROOT, 'dist');
+const SERVE_DIST = process.env.NODE_ENV === 'production' && fs.existsSync(path.join(DIST, 'index.html'));
+
+const STATIC_TYPES = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.mjs': 'text/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.webmanifest': 'application/manifest+json; charset=utf-8',
+  '.woff2': 'font/woff2',
+  '.woff': 'font/woff',
+  '.ttf': 'font/ttf',
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.gif': 'image/gif',
+  '.ico': 'image/x-icon',
+  '.mp4': 'video/mp4',
+  '.txt': 'text/plain; charset=utf-8',
+};
+
+function resolveStatic(pathname) {
+  let decoded;
+  try {
+    decoded = decodeURIComponent(pathname);
+  } catch {
+    return null;
+  }
+  const rel = decoded.replace(/^\/+/, '');
+  const file = path.resolve(DIST, rel || 'index.html');
+  // Confine reads to dist/ — reject ../ traversal and absolute escapes.
+  if (file !== DIST && !file.startsWith(DIST + path.sep)) return null;
+  try {
+    const stat = fs.statSync(file);
+    if (stat.isDirectory()) return resolveStatic(path.join(rel, 'index.html'));
+    return stat.isFile() ? file : null;
+  } catch {
+    return null;
+  }
+}
+
+function serveStatic(req, res, file) {
+  const type = STATIC_TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream';
+  const stat = fs.statSync(file);
+  const immutable = file.startsWith(path.join(DIST, 'assets') + path.sep);
+  res.writeHead(200, {
+    'Content-Type': type,
+    'Content-Length': stat.size,
+    // Vite hashes filenames under assets/, so those are safe forever; index.html
+    // has to revalidate or a redeploy goes unnoticed.
+    'Cache-Control': immutable
+      ? 'public, max-age=31536000, immutable'
+      : 'public, max-age=0, must-revalidate',
+  });
+  if (req.method === 'HEAD') return res.end();
+  fs.createReadStream(file).pipe(res);
+}
+
 const server = http.createServer();
 
 server.on('request', async (req, res) => {
@@ -1217,6 +1284,16 @@ server.on('request', async (req, res) => {
       else res.end();
     }
     return;
+  }
+
+  if (SERVE_DIST) {
+    const file = resolveStatic(url.pathname);
+    if (file) return serveStatic(req, res, file);
+    // Hash router: unknown paths still boot the SPA rather than 404.
+    const index = path.join(DIST, 'index.html');
+    if (fs.existsSync(index)) return serveStatic(req, res, index);
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    return res.end('Not found');
   }
 
   vite.middlewares(req, res, () => {
@@ -1234,7 +1311,7 @@ server.on('error', (error) => {
   process.exit(1);
 });
 
-const vite = await createViteServer({
+const vite = SERVE_DIST ? null : await createViteServer({
   root: ROOT,
   appType: 'spa',
   configLoader: 'runner',
@@ -1256,6 +1333,12 @@ server.listen(PORT, LAN ? '0.0.0.0' : '127.0.0.1', () => {
     console.log(`Phone access: run "npm run dev:lan", then open the Wi-Fi URL it prints.`);
   }
   console.log(`Link import: ${ytdlp} · ${ffmpeg} · ${ffprobe}`);
+  if (process.env.NODE_ENV === 'production' && !SERVE_DIST) {
+    console.log('  WARNING: NODE_ENV=production but dist/index.html is missing.');
+    console.log('  Falling back to the Vite dev server. Run `npm run build` first.');
+  } else if (SERVE_DIST) {
+    console.log('  Serving the production bundle from dist/.');
+  }
   if (!tools.ytdlp) console.log(`  ${MISSING_YTDLP}`);
   if (!tools.ffmpeg) console.log(`  ${MISSING_FFMPEG}`);
 });

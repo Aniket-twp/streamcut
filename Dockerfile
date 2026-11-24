@@ -29,21 +29,18 @@ RUN python3 -m venv /app/.venv \
     && /app/.venv/bin/pip install --no-cache-dir faster-whisper
 
 ENV NODE_ENV=production
+
+# HOST/LAN only. Deliberately NOT setting PORT or EXPOSE here: Railway injects
+# its own PORT (8080 on this service), and pinning 5173 in the image made the
+# domain's target port 5173 while the app actually listened on 8080 — every
+# public request 502'd even though the internal healthcheck passed. Local dev
+# and docker-compose still get 5173 (server.mjs default / compose env).
 ENV HOST=0.0.0.0
-ENV PORT=5173
 ENV LAN=1
 ENV STREAMCUT_PYTHON=/app/.venv/bin/python
 
 COPY --from=builder /app /app
 
-EXPOSE 5173
-
-# No VOLUME directive here on purpose. Railway rejects any Dockerfile containing
-# VOLUME ("docker VOLUME ... is not supported, use Railway Volumes"), which is
-# what failed every deploy of this repo. Persistence is declared by the consumer
-# instead: docker-compose.yml mounts named volumes at these same paths, and on
-# Railway you attach a Volume to the service in the dashboard or via
-# `railway volume add`.
 # Data dirs the app writes to: /app/storage, /app/cache
 
 CMD ["node", "server.mjs", "--lan"]

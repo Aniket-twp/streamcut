@@ -15,14 +15,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  # Build and deploy are deliberately separate jobs. Running upload-pages-artifact
+  # and deploy-pages back-to-back inside one job races: the upload finalizes and
+  # deploy-pages queries artifact metadata ~0.5s later, and the Actions artifact
+  # API intermittently returns "Found 0 artifact(s)". A job boundary gives the
+  # artifact time to propagate, which is the pattern GitHub documents for Pages.
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -42,6 +43,13 @@ jobs:
         with:
           path: './dist'
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
